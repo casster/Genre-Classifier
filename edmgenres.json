@@ -1,0 +1,175 @@
+{"Genres":{
+
+    
+    "Bass music":[
+        "Future bass",
+        "UK bass"],
+    "Breakbeat":[
+        "Acid breaks",
+        "Breakbeat",
+        "Nu skool breaks",
+        "Progressive breaks"],
+    "Disco":[
+        "Afro/cosmic music",
+        "Electro-disco",
+        "Euro disco",
+        "Nu-disco",
+        "Post-disco",
+        "City pop"],
+    "Downtempo":[
+        "Acid jazz",
+        "Chill-out",
+        "Trip hop",
+        "Trip rock"],
+    "Drum and bass":[
+        "Drum and bass",
+        "Darkstep",
+        "Drumfunk",
+        "Drumstep",
+        "Funkstep",
+        "Hardstep",
+        "Jazzstep",
+        "Liquid funk",
+        "Neurofunk",
+        "Techstep"],
+
+    "Electronic rock":[
+      "Electronic rock",
+        "Dance-rock",
+            "Dance-punk",
+        "Post-rock",
+        "Space rock",
+        "Synth-metal",
+        "Synth-punk"],
+
+    "Jungle":[
+        "Ragga jungle"],
+    "Hardcore":[
+        "Hardcore",
+        "Acidcore",
+        "Bouncy techno",
+        "Breakcore",
+            "Raggacore",
+        "Cybergrind",
+        "Digital hardcore",
+        "Doomcore",
+        "Freeform hardcore",
+        "Happy hardcore",
+            "UK hardcore",
+        "Industrial hardcore",
+        "J-core",
+            "Lolicore"
+        ],
+    "Hardstyle":[
+        "Dubstyle",
+        "Jumpstyle"],
+    "Hauntology":[
+        "Chillwave",
+        "Synthwave",
+            "Sovietwave",
+        "Vaporwave",
+            "Future funk",
+            "Hardvapour"],
+    "Hip hop fusion":[
+        "Afroswing",
+
+        "Cloud rap",
+
+            "Crunkcore",
+
+        "Emo rap",
+        "Electro",
+            "Lo-fi hip hop",
+
+        "Mumble rap"
+                  ],
+      
+    "Trap":[
+      "Trap",
+      "Big room trap",
+      "Festival trap",
+      "Chilltrap",
+      "Afro trap"],
+    
+    "House":[
+        "Acid house",
+        "Afro house",
+          
+        "Ambient house",
+        
+        "Bass house",
+            
+        "Deep house",
+       
+        "Electro house",
+            "Big room house",
+            "Complextro",
+            "Jungle terror",
+            "Melbourne bounce",
+        "Electro swing",
+      
+        "Future house",
+       "Garage house",
+        
+        "Moombahton",
+
+        "Progressive house",
+        "Tech house",
+        "Tribal house",
+        "Tropical house"],
+            
+    "Industrial":[
+       
+        "Electro-industrial",
+            "Dark electro",
+                
+        "Industrial hip hop",
+        "Industrial metal",
+            
+        "Industrial rock",
+        
+        "Witch house"],
+    
+    "Techno":[
+        "Acid techno",
+        "Ambient techno",
+        
+        "Dub techno",
+        "Hardtechno",
+           
+        "Industrial techno"],
+      
+    "Trance":[
+        "Acid trance",
+        "Dream trance",
+        "Euro-trance",
+        "Hard trance",
+        "Neo trance",
+        "Progressive trance",
+        "Psychedelic trance",
+            "Dark psytrance",
+            "Progressive psytrance",
+            
+        "Tech trance",
+        "Uplifting trance"],
+        
+    "UK garage":[
+      "UK garage",
+  
+      "Breakstep",
+        "Dubstep",
+            "Brostep",
+            "Chillstep",
+            "Post-dubstep",
+            "Melodic Dubstep",
+            "Reggaestep",
+            "Riddim",
+        "Future garage",
+        "Grime"],
+        
+    
+      "Uncategorized":["Worldbeat",
+      "Wave",
+      "Hardwave"]
+}
+}
