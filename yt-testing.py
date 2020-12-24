@@ -2,6 +2,11 @@ from ids import yt_key
 from googleapiclient.discovery import build
 
 
+def getTracklist(description):
+    if ("tracklist" or "track list" or "track-list") in description.lower():
+        index = description.lower().index("0:00")
+        print(description[index:])
+
 ytService = build('youtube', 'v3',developerKey=yt_key)
 
 
@@ -20,4 +25,6 @@ request2 = ytService.videos().list(
 )
 
 response2 = request2.execute()
-print(response2['items'][0]['snippet']['description'])
+description = response2['items'][0]['snippet']['description']
+#print(description)
+getTracklist(description)
