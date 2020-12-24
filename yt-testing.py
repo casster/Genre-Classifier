@@ -13,8 +13,14 @@ def removeTimestamps(tracklist):
     newTracklist = []
     for track in tracks:
         index = re.search("(([0-9]:|[0-9]{2}:)+[0-9]{2})",track).span()[1]
-        newTracklist.append(track[index+1:])
+        newTrack = track[index+1:]
+        newTrack = replaceFt(newTrack)
+        newTracklist.append(newTrack)
     return newTracklist
+
+def replaceFt(track):
+    return re.sub("ft","feat",track)
+
 
 ytService = build('youtube', 'v3',developerKey=yt_key)
 
