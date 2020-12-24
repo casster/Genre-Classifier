@@ -1,11 +1,20 @@
 from ids import yt_key
 from googleapiclient.discovery import build
+import re
 
 
 def getTracklist(description):
     if ("tracklist" or "track list" or "track-list") in description.lower():
         index = description.lower().index("0:00")
-        print(description[index:])
+        return description[index:]
+
+def removeTimestamps(tracklist):
+    tracks = trackList.split('\n')
+    newTracklist = []
+    for track in tracks:
+        index = re.search("(([0-9]:|[0-9]{2}:)+[0-9]{2})",track).span()[1]
+        newTracklist.append(track[index+1:])
+    return newTracklist
 
 ytService = build('youtube', 'v3',developerKey=yt_key)
 
@@ -26,5 +35,7 @@ request2 = ytService.videos().list(
 
 response2 = request2.execute()
 description = response2['items'][0]['snippet']['description']
-#print(description)
-getTracklist(description)
+
+trackList = getTracklist(description)
+trackList = removeTimestamps(trackList)
+print(trackList)
