@@ -26,7 +26,6 @@ def removeTimestamps(tracklist):
     tracks = tracklist.split('\n')
     newTracklist = []
     if "0:00" in tracklist:
-        print("this one")
         for track in tracks:
             if len(track) == 0:
                 break
@@ -74,3 +73,17 @@ def getVideoDescription(id):
     response = request.execute()
     description = response['items'][0]['snippet']['description']
     return description
+
+def getTracksForDataset(genre):
+    search = genre + " mix"
+    ids = getVideoIDs(search,5)
+    print(ids)
+    tracks = []
+    for i in ids:
+        description = getVideoDescription(i)
+        if checkTracklist(description):
+            tracklist = getTracklist(description)
+            tracklist = removeTimestamps(tracklist)
+            tracks = tracks + tracklist
+    print(tracks)
+    
