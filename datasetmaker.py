@@ -2,7 +2,7 @@ import json
 from ids import yt_key
 from googleapiclient.discovery import build
 import re
-from yttesting import checkTracklist, getTracklist, removeTimestamps, replaceFt
+from ytapi import checkTracklist, getTracklist, removeTimestamps, replaceFt
 import requests
 import base64
 from ids import client_id
