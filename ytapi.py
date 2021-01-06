@@ -10,41 +10,43 @@ def checkTracklist(description):
 
 def getTracklist(description):
     if checkTracklist(description):
-        if "0:00" in description:
-            index = description.lower().index("0:00")
-            return description[index:]
-        else:
-            description = description[description.lower().index("track"):]
-            if "1." in description:
-                index = description.lower().index("1.")
-                return description[index:]
-            elif "1:" in description:
-                index = description.lower().index("1:")
-                return description[index:]
+        startOfTracklist = re.search("track",description.lower()).span()[1]
+        index = re.search("(\n)+",description[startOfTracklist:]).span()[1]
+        tracklist = replaceFt(description[startOfTracklist:][index:])
+        return tracklist
+
+def checkForTimestamps(description):
+    if "0:00" in description or "0:01" in description or "1." in description or "1:" in description:
+        return True
+    return False
 
 def removeTimestamps(tracklist):
     tracks = tracklist.split('\n')
     newTracklist = []
-    if "0:00" in tracklist:
-        for track in tracks:
-            if len(track) == 0:
-                break
-            #print("TRACK ",track)
-            index = re.search("(([0-9]:|[0-9]{2}:)+[0-9]{2})",track).span()[1]
-            newTrack = track[index+1:]
-            #Because spotify has features as .feat
-            newTrack = replaceFt(newTrack)
-            newTracklist.append(newTrack)
-        return newTracklist
-    elif ("1." or "1:") in tracklist:
-        for track in tracks:
-            if len(track) == 0:
-                break
-            index = re.search("([0-9]+(.|:))",track).span()[1]
-            newTrack = track[index+1:]
-            newTrack = replaceFt(newTrack)
-            newTracklist.append(newTrack)
-        return newTracklist
+    if checkForTimestamps(tracklist):
+        if "0:00" in tracklist or "0:01" in tracklist:
+            for track in tracks:
+                if len(track) == 0:
+                    return newTracklist
+                index = re.search("(([0-9]:|[0-9]{2}:)+[0-9]{2})",track)
+                if index is None:
+                    return newTracklist
+                index = index.span()[1]
+                newTrack = track[index+1:]
+                newTrack = replaceFt(newTrack)
+                newTracklist.append(newTrack)
+            return newTracklist
+        elif ("1." or "1:") in tracklist:
+            for track in tracks:
+                if len(track) == 0:
+                    return newTracklist
+                index = re.search("([0-9]+(.|:))",track).span()[1]
+                newTrack = track[index+1:]
+                newTrack = replaceFt(newTrack)
+                newTracklist.append(newTrack)
+            return newTracklist
+    else:
+        return tracks
 
 
 def replaceFt(track):
@@ -75,15 +77,14 @@ def getVideoDescription(id):
     return description
 
 def getTracksForDataset(genre):
-    search = genre + " mix"
-    ids = getVideoIDs(search,5)
-    print(ids)
+    ids = getVideoIDs(genre,5)
     tracks = []
     for i in ids:
         description = getVideoDescription(i)
         if checkTracklist(description):
             tracklist = getTracklist(description)
             tracklist = removeTimestamps(tracklist)
-            tracks = tracks + tracklist
-    print(tracks)
+            if tracklist is not None:
+                tracks = tracks + tracklist
+    return tracks
     
