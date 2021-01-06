@@ -20,6 +20,8 @@ def searchForTrack(t):
     query = "https://api.spotify.com/v1/search?q="+t+"&type=track&limit=1"
     searchresponse = requests.get(query,
         headers={"Content-Type":"application/json","Authorization":"Bearer {}".format(access_token)})
+    if len(searchresponse.json()['tracks']['items']) == 0:
+        return None
     trackid = searchresponse.json()["tracks"]["items"][0]["id"]
     return trackid
 
