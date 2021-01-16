@@ -3,8 +3,12 @@ from keras.layers import Dense
 from sklearn.model_selection import RepeatedKFold
 from sklearn.metrics import accuracy_score
 import csv
+import numpy as np
 from numpy import mean
 from numpy import std
+import tensorflow as tf
+from tensorflow import keras
+import spotifyapi as sp
 
 data = open('dataset.csv')
 reader = csv.reader(data)
@@ -13,6 +17,8 @@ y = []
 for row in reader:
     X.append(row[1:9])
     y.append(row[9:])
+
+genres = y[0]
 
 X = X[1:]
 y = y[1:]
@@ -46,6 +52,23 @@ def evaluate_model(X, y):
     model = get_model(n_inputs, n_outputs)
     model.fit(X, y, verbose=0, epochs=100)
     return model
+
+def load_model():
+    return tf.keras.models.load_model("saved_model/model")
+
+def eval(search,m):
+    trackid = sp.searchForTrack(search)
+    if trackid == None:
+        print("No track")
+        return
+    features = sp.getAudioFeatures(trackid)
+    x = [[features['acousticness'],features["danceability"],features["energy"],features["instrumentalness"],features["loudness"],features["speechiness"],features["valence"],features["tempo"]]]
+    results = m.predict(x)
+    max_r = max(results[0])
+    print("Most likely genre:",genres[np.where(results[0]==max_r)[0][0]],round(max_r*100,2),"%")
+    for i in range(len(results[0])):
+        print(genres[i],round(results[0][i]*100,2),"%")
+
 
 def do():
     print(X[0])
