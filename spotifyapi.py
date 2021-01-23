@@ -25,6 +25,26 @@ def searchForTrack(t):
     trackid = searchresponse.json()["tracks"]["items"][0]["id"]
     return trackid
 
+def searchForPlaylist(p):
+    access_token = getAccessToken()
+    query = "https://api.spotify.com/v1/search?q="+p+"&type=playlist&limit=1"
+    searchresponse = requests.get(query,
+        headers={"Content-Type":"application/json","Authorization":"Bearer {}".format(access_token)})
+    if len(searchresponse.json()["playlists"]["items"]) == 0:
+        return None
+    playlistid = searchresponse.json()["playlists"]["items"][0]["id"]
+    return playlistid
+
+def getPlaylistTracks(p):
+    access_token = getAccessToken()
+    query = "https://api.spotify.com/v1/playlists/"+p+"/tracks"
+    playlistresponse = requests.get(query,
+        headers ={"Content-Type":"application/json","Authorization":"Bearer {}".format(access_token)})
+    tracks = []
+    for t in playlistresponse.json()["items"]:
+        tracks.append(t["track"]["id"])
+    return tracks
+
 def getAudioFeatures(trackid):
     access_token = getAccessToken()
     trackresponse = requests.get("https://api.spotify.com/v1/audio-features/"+trackid,
