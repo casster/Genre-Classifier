@@ -2,15 +2,15 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.model_selection import RepeatedKFold
 from sklearn.metrics import accuracy_score
-import csv
 import numpy as np
 from numpy import mean
 from numpy import std
 import tensorflow as tf
 from tensorflow import keras
 import spotifyapi as sp
+import musicgenres as mg
 
-data = open('dataset.csv')
+'''data = open('dataset.csv')
 reader = csv.reader(data)
 X = []
 y = []
@@ -36,7 +36,7 @@ for i in y:
     yy = []
     for j in i:
         yy.append(int(j))
-    yset.append(yy)
+    yset.append(yy)'''
 
 def get_model(n_inputs, n_outputs):
     model = Sequential()
@@ -57,6 +57,7 @@ def load_model():
     return tf.keras.models.load_model("saved_model/model")
 
 def eval(search,m):
+    _,_,genres = mg.load_data()
     trackid = sp.searchForTrack(search)
     if trackid == None:
         print("No track")
@@ -71,9 +72,8 @@ def eval(search,m):
 
 
 def do():
-    print(X[0])
-    print(y[0])
-    model = evaluate_model(Xset,yset)
+    X, y, genres = mg.load_data()
+    model = evaluate_model(X,y)
     return model
 
 
