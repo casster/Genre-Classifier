@@ -1,5 +1,22 @@
 import csv
 
+def strToNum(X,y):
+    Xset = []
+    yset = []
+    for i in X:
+        xx = []
+        for j in i:
+            xx.append(float(j))
+        Xset.append(xx)
+
+    for i in y:
+        yy = []
+        for j in i:
+            yy.append(int(j))
+        yset.append(yy)
+    return Xset, yset
+
+
 def load_data1():
     data = open('dataset.csv')
     reader = csv.reader(data)
@@ -14,20 +31,7 @@ def load_data1():
     X = X[1:]
     y = y[1:]
 
-    Xset = []
-    yset = []
-
-    for i in X:
-        xx = []
-        for j in i:
-            xx.append(float(j))
-        Xset.append(xx)
-
-    for i in y:
-        yy = []
-        for j in i:
-            yy.append(int(j))
-        yset.append(yy)
+    Xset, yset = strToNum(X,y)
 
     return Xset, yset, genres
 
@@ -43,19 +47,7 @@ def load_data2():
     genres = y[0]
     X = X[1:]
     y = y[1:]
-    Xset = []
-    yset = []
-
-    for i in X:
-        xx = []
-        for j in i:
-            xx.append(float(j))
-        Xset.append(xx)
-
-    for i in y:
-        yy = []
-        for j in i:
-            yy.append(int(j))
-        yset.append(yy)
+    
+    Xset, yset = strToNum(X,y)
 
     return Xset, yset, genres

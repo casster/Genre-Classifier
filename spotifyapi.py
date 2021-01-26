@@ -27,6 +27,16 @@ def searchForTrack(t):
     trackid = searchresponse.json()["tracks"]["items"][0]["id"]
     return trackid
 
+def getTrackInfo(t):
+    #t is track id
+    query = "https://api.spotify.com/v1/tracks/"+t
+    trackresponse = doRequest(query).json()
+    artists = []
+    for artist in trackresponse["artists"]:
+        artists.append(artist["name"])
+    return artists, trackresponse["name"]
+    
+
 def searchForPlaylist(p):
     query = "https://api.spotify.com/v1/search?q="+p+"&type=playlist&limit=1"
     searchresponse = doRequest(query)
