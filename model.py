@@ -54,10 +54,10 @@ def evaluate_model(X, y):
     return model
 
 def load_model():
-    return tf.keras.models.load_model("saved_model/model")
+    return tf.keras.models.load_model("saved_model/model3")
 
 def eval(search,m):
-    _,_,genres = mg.load_data()
+    _,_,genres = mg.load_data2()
     trackid = sp.searchForTrack(search)
     if trackid == None:
         print("No track")
@@ -67,12 +67,13 @@ def eval(search,m):
     results = m.predict(x)
     max_r = max(results[0])
     print("Most likely genre:",genres[np.where(results[0]==max_r)[0][0]],round(max_r*100,2),"%")
-    for i in range(len(results[0])):
-        print(genres[i],round(results[0][i]*100,2),"%")
+    top = np.flip(np.sort(results))[0][:5]
+    for i in top:
+        print(genres[np.where(i==results[0])[0][0]],round(i*100,2),"%")
 
 
 def do():
-    X, y, genres = mg.load_data()
+    X, y, genres = mg.load_data2()
     model = evaluate_model(X,y)
     return model
 

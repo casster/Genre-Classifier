@@ -29,7 +29,7 @@ def searchForTrack(t):
 
 def searchForPlaylist(p):
     query = "https://api.spotify.com/v1/search?q="+p+"&type=playlist&limit=1"
-    searchresponse = doRequest()
+    searchresponse = doRequest(query)
     if len(searchresponse.json()["playlists"]["items"]) == 0:
         return None
     playlistid = searchresponse.json()["playlists"]["items"][0]["id"]
@@ -37,7 +37,7 @@ def searchForPlaylist(p):
 
 def getPlaylistTracks(p):
     query = "https://api.spotify.com/v1/playlists/"+p+"/tracks"
-    playlistresponse = doRequest()
+    playlistresponse = doRequest(query)
     tracks = []
     for t in playlistresponse.json()["items"]:
         tracks.append(t["track"]["id"])
@@ -45,5 +45,5 @@ def getPlaylistTracks(p):
 
 def getAudioFeatures(trackid):
     query = "https://api.spotify.com/v1/audio-features/"+trackid
-    trackresponse = doRequest()
+    trackresponse = doRequest(query)
     return trackresponse.json()
