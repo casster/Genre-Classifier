@@ -17,6 +17,8 @@ from torchvision import transforms
 import argparse
 from pathlib import Path
 
+import musicgenres
+
 torch.backends.cudnn.benchmark = True
 
 parser = argparse.ArgumentParser(
@@ -31,7 +33,7 @@ parser.add_argument(
     "--batch-size",
     default=128,
     type=int,
-    help="Number of images within each mini-batch",
+    help="Number of data points within each mini-batch",
 )
 parser.add_argument(
     "--epochs",
@@ -66,12 +68,6 @@ parser.add_argument(
 )
 
 
-class ImageShape(NamedTuple):
-    height: int
-    width: int
-    channels: int
-
-
 if torch.cuda.is_available():
     DEVICE = torch.device("cuda")
 else:
@@ -79,6 +75,10 @@ else:
 
 
 def main(args):
+
+    X, y = musicgenres.load_data2()
+    print(X.shape,y.shape)
+    exit(0)
     transform = transforms.ToTensor()
     args.dataset_root.mkdir(parents=True, exist_ok=True)
     train_dataset = torchvision.datasets.CIFAR10(
@@ -131,6 +131,26 @@ def main(args):
 
     summary_writer.close()
 
+class Model(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc1 = nn.Linear()
+        self.initialise_layer(self.fc1)
+        self.fc2 = nn.Linear()
+        self.initialise_layer(self.fc2)
+
+    def forward(self, images: torch.Tensor) -> torch.Tensor:
+        x = F.relu(self.fc1(images))
+        x = self.fc2(x)
+        return x
+
+    #Weight initialisation
+    @staticmethod
+    def initialise_layer(layer):
+        if hasattr(layer, "bias"):
+            nn.init.zeros_(layer.bias)
+        if hasattr(layer, "weight"):
+            nn.init.kaiming_normal_(layer.weight)
 
 class CNN(nn.Module):
     def __init__(self, height: int, width: int, channels: int, class_count: int):
@@ -179,6 +199,7 @@ class CNN(nn.Module):
         x = self.fc2(x)
         return x
 
+    #Weight initialisation
     @staticmethod
     def initialise_layer(layer):
         if hasattr(layer, "bias"):
